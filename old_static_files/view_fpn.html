@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-sm-12">
+      <h2 align="center">View FPN</h2>
+      <br>
+      <br>
+      <br>
+    </div>
+
+    <div class="row" style="padding: 25px">
+      <!-- <div class="formwrapper">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+ ######################column-1############################################
+             <div class="col-sm-6">
+              <br>
+              <br>
+              <div class="form-field" padding-left=5px>
+              {{ form.view_fpn_fpn.label(class="form-control-label") }}: {{ form.view_fpn_fpn(class="form-control form-control-lg") }}
+                {% if form.view_fpn_fpn.errors %}
+                  <ul class="errors">
+                    {% for error in form.fpn.errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+            </div>
+                
+            </div>
+            <div class="col-sm-6">
+              <br><br><br>
+              {{ form.view_fpn_submit(class="btn btn-primary") }}
+            </div>
+            
+          </form>
+        </div> -->
+
+        <div class="row">
+    <div class="row" style="padding: 25px">
+      <table class="table table-bordered table-dark table-hover">  
+        <thead class="thead-dark">
+          <td>#</td>
+          <td>FPN</td>  
+          <td>FPN Description</td>  
+          <td>Resource Duration</td> 
+          <td>Amount</td> 
+          <td>Opening Balance</td>
+          <td>Amount Utilized</td>
+          <td>Remaining Amount</td>
+        </thead>  
+      
+        {% for row in rows %} 
+      
+          <tr>  
+              <td>{{row[0]}}</td>  
+              <td>{{row[1]}}</td>  
+              <td>{{row[2]}}</td>  
+              <td>{{row[3]}}</td>
+              <td>{{row[4]}}</td>
+              <td>{{row[5]}}</td>
+              <td>{{row[6]}}</td>
+              <td>{{row[7]}}</td>
+          </tr>  
+      
+        {% endfor %}  
+      </table>
+    </div>
+  </div>
+      </div>
+
+    
+
+{% endblock %}

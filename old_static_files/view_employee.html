@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-sm-12">
+      <h2 align="center">View Employees</h2>
+      <h5 align="center">List of active Vendor Employees</h5>
+      <br>
+      <br>
+    </div>
+
+    <div class="row" style="padding: 25px">
+      <table class="table table-bordered table-dark table-hover">  
+        <thead class="thead-dark">
+          <td>#</td>
+          <td>Emp. Code</td>  
+          <td>Name</td>  
+          <td>Vendor</td> 
+          <td>Joining Date</td> 
+          <td>Rate</td>
+          <td>Status</td>
+          <td>Manager</td>
+        </thead>  
+      
+        {% for row in rows %} 
+      
+          <tr>  
+              <td>{{row[0]}}</td>  
+              <td>{{row[1]}}</td>  
+              <td>{{row[2]}}</td>  
+              <td>{{row[3]}}</td>
+              <td>{{row[4]}}</td>
+              <td>{{row[5]}}</td>
+              <td>{{row[6]}}</td>
+              <td>{{row[7]}}</td>
+          </tr>  
+      
+        {% endfor %}  
+      </table>
+    </div>
+    
+</div>
+
+{% endblock %}

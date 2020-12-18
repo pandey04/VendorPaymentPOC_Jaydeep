@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VPT-Dashboard</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}" > -->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}" >
+		<link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <script type="text/javascript" src="{{url_for('static',filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+		<link rel="icon" href="{{url_for('static',filename='title_icon.png')}}">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Vendor Payment Tracker</div>
+      <div class="list-group list-group-flush">
+        <a href="/dashboard" class="list-group-item list-group-item-action list-group-item-info">Dashboard</a>
+        <a href="/po" class="list-group-item list-group-item-action list-group-item-primary">Purchase Orders</a>
+        <a href="/employees" class="list-group-item list-group-item-action list-group-item-primary">Employees</a>
+        <a href="/fpn" class="list-group-item list-group-item-action list-group-item-primary">FPN</a>
+        <a href="/holidays" class="list-group-item list-group-item-action list-group-item-primary">Holidays</a>
+				<a href="/upload" class="list-group-item list-group-item-action list-group-item-primary">Upload Timesheet</a>
+        <!-- <a href="#" class="list-group-item list-group-item-action bg-light">Status</a> -->
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-inverse bg-dark border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="/dashboard">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+						<li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Hi,{{username}}
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/logout">Logout</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <div class="row">
+          <br>
+          <div class="col-sm-6">
+            <canvas id="myChart" width="600" height="400">
+
+          </canvas>
+
+          </div>
+          <div class="col-sm-6">
+            <canvas id="chart2" width="600" height="400">
+
+        </canvas>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src={{url_for('static',filename='vendor/jquery/jquery.min.js')}}></script>
+  <script src={{url_for('static',filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}></script>
+
+  <!-- Menu Toggle Script ---------------------------------------------------------->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+  <!--  First Chart Script --------------------------------------------------------->
+  <script type="text/javascript">
+
+    Chart.defaults.global.responsive = false;
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var ctx2 = document.getElementById("chart2").getContext("2d");
+
+    var chartData = {
+  labels : [{% for item in labels %}
+             "{{item}}",
+            {% endfor %}],
+  datasets : [{
+      label: '{{ legend }}',
+      fill: true,
+      lineTension: 0.1,
+      backgroundColor: "rgba(75,192,192,0.4)",
+      borderColor: "rgba(75,192,192,1)",
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: "rgba(75,192,192,1)",
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(75,192,192,1)",
+      pointHoverBorderColor: "rgba(220,220,220,1)",
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data : [{% for item in values %}
+                {{item}},
+              {% endfor %}],
+      spanGaps: false
+  }]
+};
+
+// create the chart using the chart canvas
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: chartData,
+});
+
+
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: chartData,
+});
+var chart2 = new Chart(ctx2, {
+  type: 'line',
+  data: chartData,
+});
+</script>
+
+
+
+
+
+</body>
+</html>
